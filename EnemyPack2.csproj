@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<RootNamespace>Flipbop.EnemyPack2</RootNamespace>
+		<Version>0.1.0</Version>
+
+		<TargetFramework>net8.0</TargetFramework>
+		<LangVersion>12.0</LangVersion>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>Nullable</WarningsAsErrors>
+		<GameExePath>/Users/christopherfranson/Documents/CobaltCore.exe</GameExePath>
+		<ModLoaderPath>/Users/christopherfranson/Desktop/NickelHolder/Nickel</ModLoaderPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<ModFiles Include="i18n/**" />
+		<ModFiles Include="assets/**" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Nickel.ModBuildConfig" Version="2.0.1" />
+		<PackageReference Include="EnumByNameSourceGenerator" Version="1.1.2" PrivateAssets="All" ExcludeAssets="runtime" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="assets\Artifacts\" />
+	  <Folder Include="assets\Cards\" />
+	  <Folder Include="assets\Character\" />
+	  <Folder Include="assets\Icons\" />
+	  <Folder Include="docs\images\" />
+	  <Folder Include="release\" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "MXh1DZpvr7I=",
+  "success": true,
+  "projectFilePath": "/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/EnemyPack2.csproj",
+  "expectedPackageFiles": [
+    "/Users/christopherfranson/.nuget/packages/enumbynamesourcegenerator/1.1.2/enumbynamesourcegenerator.1.1.2.nupkg.sha512",
+    "/Users/christopherfranson/.nuget/packages/fayti1703.assemblytasks/1.1.0/fayti1703.assemblytasks.1.1.0.nupkg.sha512",
+    "/Users/christopherfranson/.nuget/packages/nanoray.extractsinglefileapplicationresourcetask/1.0.0/nanoray.extractsinglefileapplicationresourcetask.1.0.0.nupkg.sha512",
+    "/Users/christopherfranson/.nuget/packages/nickel.modbuildconfig/2.0.1/nickel.modbuildconfig.2.0.1.nupkg.sha512",
+    "/Users/christopherfranson/.nuget/packages/microsoft.netcore.app.ref/8.0.13/microsoft.netcore.app.ref.8.0.13.nupkg.sha512",
+    "/Users/christopherfranson/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.13/microsoft.aspnetcore.app.ref.8.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

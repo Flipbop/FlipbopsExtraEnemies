@@ -1,0 +1,9 @@
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/bin/Debug/net8.0/EnemyPack2.deps.json
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/bin/Debug/net8.0/EnemyPack2.dll
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.csproj.AssemblyReference.cache
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.GeneratedMSBuildEditorConfig.editorconfig
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.AssemblyInfoInputs.cache
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.AssemblyInfo.cs
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.csproj.CoreCompileInputs.cache
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.sourcelink.json
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.dll

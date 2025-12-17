@@ -1,0 +1,9 @@
+/Users/christopherfranson/Desktop/Cobalt Core Mods/RosaGit/Rosa/bin/Release/net8.0/Rosa.deps.json
+/Users/christopherfranson/Desktop/Cobalt Core Mods/RosaGit/Rosa/bin/Release/net8.0/Rosa.dll
+/Users/christopherfranson/Desktop/Cobalt Core Mods/RosaGit/Rosa/obj/Release/net8.0/Rosa.csproj.AssemblyReference.cache
+/Users/christopherfranson/Desktop/Cobalt Core Mods/RosaGit/Rosa/obj/Release/net8.0/Rosa.GeneratedMSBuildEditorConfig.editorconfig
+/Users/christopherfranson/Desktop/Cobalt Core Mods/RosaGit/Rosa/obj/Release/net8.0/Rosa.AssemblyInfoInputs.cache
+/Users/christopherfranson/Desktop/Cobalt Core Mods/RosaGit/Rosa/obj/Release/net8.0/Rosa.AssemblyInfo.cs
+/Users/christopherfranson/Desktop/Cobalt Core Mods/RosaGit/Rosa/obj/Release/net8.0/Rosa.csproj.CoreCompileInputs.cache
+/Users/christopherfranson/Desktop/Cobalt Core Mods/RosaGit/Rosa/obj/Release/net8.0/Rosa.sourcelink.json
+/Users/christopherfranson/Desktop/Cobalt Core Mods/RosaGit/Rosa/obj/Release/net8.0/Rosa.dll

@@ -1,0 +1,14 @@
+{
+  "UniqueName": "Flipbop.EnemyPack2",
+  "Version": "0.1.0",
+  "RequiredApiVersion": "1.6.0",
+  "EntryPointAssembly": "EnemyPack2.dll",
+  "LoadPhase": "AfterDbInit",
+  "Dependencies": [
+    {
+      "UniqueName": "Shockah.Kokoro",
+      "Version": "2.0.0"
+    }
+  ]
+
+}

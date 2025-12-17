@@ -1,0 +1,84 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/EnemyPack2.csproj": {}
+  },
+  "projects": {
+    "/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/EnemyPack2.csproj": {
+      "version": "0.1.0",
+      "restore": {
+        "projectUniqueName": "/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/EnemyPack2.csproj",
+        "projectName": "EnemyPack2",
+        "projectPath": "/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/EnemyPack2.csproj",
+        "packagesPath": "/Users/christopherfranson/.nuget/packages/",
+        "outputPath": "/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/christopherfranson/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "EnumByNameSourceGenerator": {
+              "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.2, )"
+            },
+            "Nickel.ModBuildConfig": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
