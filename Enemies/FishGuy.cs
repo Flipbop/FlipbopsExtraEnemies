@@ -20,12 +20,16 @@ internal sealed class FishGuyEnemy : AI, IRegisterableEnemy
 		Type thisType = MethodBase.GetCurrentMethod()!.DeclaringType!;
 		IRegisterableEnemy.MakeSetting(helper, helper.Content.Enemies.RegisterEnemy(new() {
 			EnemyType = thisType,
-			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship","fishguy", "name"]).Localize,
-			ShouldAppearOnMap = (_, map) => IRegisterableEnemy.IfEnabled(thisType, map is MapThree ? BattleType.Normal : null)
+			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship","fishguy"]).Localize,
+			ShouldAppearOnMap = (_, map) => IRegisterableEnemy.IfEnabled(thisType, map is MapThree ? BattleType.Elite : null)
 		}));
 		
 	}
-	
+
+	public override void OnCombatStart(State s, Combat c)
+	{
+		c.bg = new BGUnderwater();
+	}
 
 	public override Ship BuildShipForSelf(State s)
 	{
@@ -35,53 +39,58 @@ internal sealed class FishGuyEnemy : AI, IRegisterableEnemy
 		};
 		List<Part> parts = [
 			new Part {
-				key = "cannon.left",
-				type = PType.cannon,
-				skin = "wing_knight"
-			},
-			new Part {
-				key = "wing",
+				key = "wing.left",
 				type = PType.wing,
-				skin = "missiles_gemini_off",
+				skin = "wing_ancient",
+				damageModifier = PDamMod.weak
 			},
-			new Part {
-				key = "power.left",
+			new Part()
+			{
+				key = "bay.left"	,
+				type = PType.missiles,
+				skin = "missiles_ancient"
+			},
+			new Part()
+			{
+				key	= "centerpiece.left",
+				type = PType.wing,
+				skin = "wing_ancient"
+			},
+			new Part()
+			{
+				key = "cannon",
 				type = PType.cannon,
-				skin = "wing_knight"
+				skin = "cannon_ancient"
 			},
-			new Part {
-				key = "cockpit",
+			new Part()
+			{
+				key	= "centerpiece.right",
+				type = PType.wing,
+				skin = "wing_ancient",
+				flip = true
+			},
+			new Part()
+			{
+				key = "bay.right"	,
+				type = PType.missiles,
+				skin = "missiles_ancient",
+				flip = true
+			},
+			new Part()
+			{
+				key = "wing.right",
 				type = PType.cockpit,
+				skin = "cockpit_ancient",
 				damageModifier = PDamMod.weak,
-				stunModifier = PStunMod.stunnable,
-				skin = "cockpit_wizard"
-			},
-			new Part {
-				key = "power.right",
-				type = PType.cannon,
-				skin = "wing_knight",
-				flip = true
-			},
-			new Part {
-				key = "wing",
-				type = PType.wing,
-				skin = "missiles_gemini_off",
-				flip = true
-			},
-			new Part {
-				key = "cannon.right",
-				type = PType.cannon,
-				skin = "wing_knight",
-				flip = true
-			},
+			}
 		];
 		return new Ship {
 			x = 6,
-			hull = 15,
-			hullMax = 15,
-			shieldMaxBase = 0,
+			hull = 10,
+			hullMax = 10,
+			shieldMaxBase = 5,
 			ai = this,
-			chassisUnder = "chassis_lawless",
+			chassisUnder = "chassis_ancient",
 			parts = parts
 		};
 	}
@@ -94,68 +103,28 @@ internal sealed class FishGuyEnemy : AI, IRegisterableEnemy
 	public override EnemyDecision PickNextIntent(State s, Combat c, Ship ownShip)
 	{
 		return MoveSet(aiCounter++, () => new EnemyDecision {
-			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon.left"),
+			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
 			intents = [
-				new IntentAttack
-				{
-					key = "power.left",
-					damage = 1,
-				},
-				new IntentAttack
-				{
-					key = "cannon.left",
-					damage = 1,
-					multiHit = 5,
-				},
+				
 			]
 			
 		}, () => new EnemyDecision
 		{
-			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "power.left"),
+			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
 			intents = [
-				new IntentAttack
-				{
-					key = "power.right",
-					damage = 1,
-				},
-				new IntentAttack
-				{
-					key = "power.left",
-					damage = 1,
-					multiHit = 5,
-				},
+				
 			]
 		}, () => new EnemyDecision
 		{
-			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "power.right"),
+			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
 			intents = [
-				new IntentAttack
-				{
-					key = "cannon.right",
-					damage = 1,
-				},
-				new IntentAttack
-				{
-					key = "power.right",
-					damage = 1,
-					multiHit = 5,
-				},
+				
 			]
 		}, () => new EnemyDecision
 		{
-			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon.right"),
+			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
 			intents = [
-				new IntentAttack
-				{
-					key = "cannon.left",
-					damage = 1,
-				},
-				new IntentAttack
-				{
-					key = "cannon.right",
-					damage = 1,
-					multiHit = 5,
-				},
+				
 			]
 		});
 	}

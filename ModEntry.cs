@@ -30,44 +30,21 @@ public sealed class ModEntry : SimpleMod
 	public IModHelper helper { get; }
 	
 
-	internal static IReadOnlyList<Type> CommonCardTypes { get; } = [
-		
-	];
-
-	internal static IReadOnlyList<Type> UncommonCardTypes { get; } = [
-		
-	];
-
-	internal static IReadOnlyList<Type> RareCardTypes { get; } = [
-		
-	];
-
 	internal static IReadOnlyList<Type> SpecialCardTypes { get; } = [
 
 	];
-
-	internal static IEnumerable<Type> AllCardTypes { get; }
-		= [..CommonCardTypes, ..UncommonCardTypes, ..RareCardTypes, ..SpecialCardTypes];
-
 	internal static IReadOnlyList<Type> CommonArtifacts { get; } = [
-		
-	];
-
-	internal static IReadOnlyList<Type> BossArtifacts { get; } = [
 		
 	];
 	
 	internal static IReadOnlyList<Type> EnemyTypes { get; } =
 	[
-		//typeof(),
+		typeof(FishGuyEnemy),
 		
 	];
-	
-	internal static IEnumerable<Type> AllArtifactTypes
-		=> [..CommonArtifacts, ..BossArtifacts];
 
 	internal static readonly IEnumerable<Type> RegisterableTypes
-		= [..AllCardTypes, ..AllArtifactTypes];
+		= [..SpecialCardTypes, ..CommonArtifacts];
 	
 
 	public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
@@ -78,6 +55,7 @@ public sealed class ModEntry : SimpleMod
 		Instance = this;
 		Harmony = helper.Utilities.Harmony;
 		KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!.V2;
+		ModSettings = helper.Storage.LoadJson<ModSettings>(helper.Storage.GetMainStorageFile("json"));
 
 		helper.Events.OnModLoadPhaseFinished += (_, phase) =>
 		{
@@ -86,6 +64,7 @@ public sealed class ModEntry : SimpleMod
 			foreach (Type type in EnemyTypes) {
 				AccessTools.DeclaredMethod(type, nameof(IRegisterableEnemy.Register))?.Invoke(null, [helper]);
 			}
+
 		};
 
 		this.AnyLocalizations = new JsonLocalizationProvider(
@@ -113,6 +92,8 @@ public sealed class ModEntry : SimpleMod
 				.ToList()
 		});
 		
+		
+		SetUpModSettings(helper);
 	}
 
 	public override object? GetApi(IModManifest requestingMod)
@@ -120,19 +101,21 @@ public sealed class ModEntry : SimpleMod
 
 	internal static Rarity GetCardRarity(Type type)
 	{
-		if (RareCardTypes.Contains(type))
-			return Rarity.rare;
-		if (UncommonCardTypes.Contains(type))
-			return Rarity.uncommon;
 		return Rarity.common;
 	}
 
 	internal static ArtifactPool[] GetArtifactPools(Type type)
 	{
-		if (BossArtifacts.Contains(type))
-			return [ArtifactPool.Boss];
 		if (CommonArtifacts.Contains(type))
 			return [ArtifactPool.Common];
 		return [];
+	}
+	private void SetUpModSettings(IModHelper helper) {
+		if (helper.ModRegistry.GetApi<IModSettingsApi>("Nickel.ModSettings") is { } settingsApi) {
+			settingsApi.RegisterModSettings(settingsApi.MakeList(SettingsEntries)
+				.SubscribeToOnMenuClose(_ => {
+					helper.Storage.SaveJson(helper.Storage.GetMainStorageFile("json"), ModSettings);
+				}));
+		}
 	}
 }
