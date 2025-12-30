@@ -21,7 +21,7 @@ internal sealed class FishGuyEnemy : AI, IRegisterableEnemy
 		IRegisterableEnemy.MakeSetting(helper, helper.Content.Enemies.RegisterEnemy(new() {
 			EnemyType = thisType,
 			Name = ModEntry.Instance.AnyLocalizations.Bind(["ship","fishguy"]).Localize,
-			ShouldAppearOnMap = (_, map) => IRegisterableEnemy.IfEnabled(thisType, map is MapThree ? BattleType.Elite : null)
+			ShouldAppearOnMap = (_, map) => IRegisterableEnemy.IfEnabled(thisType, map is MapThree ? BattleType.Normal : null)
 		}));
 		
 	}
@@ -94,37 +94,66 @@ internal sealed class FishGuyEnemy : AI, IRegisterableEnemy
 			parts = parts
 		};
 	}
-	
-	public override Song? GetSong(State s)
-	{
-		return Song.Elite;
-	}
 
 	public override EnemyDecision PickNextIntent(State s, Combat c, Ship ownShip)
 	{
-		return MoveSet(aiCounter++, () => new EnemyDecision {
+		return MoveSet(aiCounter++, () => new EnemyDecision
+		{
 			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
-			intents = [
-				
+			intents =
+			[
+				new IntentSpawn()
+				{
+					thing = new FishingHook(){xDir = 1, targetPlayer = true},
+					key = "bay.left"
+				},
+				new IntentAttack()
+				{
+					key = "cannon",
+					damage = 2,
+				}
 			]
-			
+
 		}, () => new EnemyDecision
 		{
 			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
-			intents = [
-				
+			intents =
+			[
+				new IntentSpawn()
+				{
+					thing = new FishingHook(){xDir = -1, targetPlayer = true},
+					key = "bay.right"
+				},
+				new IntentAttack()
+				{
+					key = "cannon",
+					damage = 5,
+				}
 			]
 		}, () => new EnemyDecision
 		{
 			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
-			intents = [
-				
-			]
-		}, () => new EnemyDecision
-		{
-			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
-			intents = [
-				
+			intents =
+			[
+				new IntentStatus()
+				{
+					key = "centerpiece.left",
+					amount = 1,
+					status = Status.bubbleJuice,
+					targetSelf = true
+				},
+				new IntentStatus()
+				{
+					key = "centerpiece.right",
+					amount = 1,
+					status = Status.bubbleJuice,
+					targetSelf = true
+				},
+				new IntentAttack()
+				{
+					key = "cannon",
+					damage = 5,
+				}
 			]
 		});
 	}

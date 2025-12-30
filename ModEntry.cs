@@ -7,6 +7,7 @@ using Shockah.Kokoro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Flipbop.BOAF;
 
 namespace Flipbop.EnemyPack2;
 
@@ -25,6 +26,7 @@ public sealed class ModEntry : SimpleMod
 	internal ModSettings ModSettings = new();
 
 	internal INonPlayableCharacterEntryV2 FishBreathCharacter { get; }
+	internal INonPlayableCharacterEntryV2 RevCharacter { get; }
 
 
 	public IModHelper helper { get; }
@@ -37,6 +39,12 @@ public sealed class ModEntry : SimpleMod
 		
 	];
 	
+	internal static IReadOnlyList<Type> MidrowObjects { get; } =
+	[
+		typeof(FishingHook),
+		
+	];
+	
 	internal static IReadOnlyList<Type> EnemyTypes { get; } =
 	[
 		typeof(FishGuyEnemy),
@@ -44,7 +52,7 @@ public sealed class ModEntry : SimpleMod
 	];
 
 	internal static readonly IEnumerable<Type> RegisterableTypes
-		= [..SpecialCardTypes, ..CommonArtifacts];
+		= [..SpecialCardTypes, ..CommonArtifacts, ..MidrowObjects];
 	
 
 	public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
@@ -75,6 +83,9 @@ public sealed class ModEntry : SimpleMod
 			new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(this.AnyLocalizations)
 		);
 		
+		foreach (var registerableType in RegisterableTypes)
+			AccessTools.DeclaredMethod(registerableType, nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+		
 		FishBreathCharacter = helper.Content.Characters.V2.RegisterNonPlayableCharacter("FishBreath", new NonPlayableCharacterConfigurationV2()
 		{
 			CharacterType = "fishguy",
@@ -91,8 +102,24 @@ public sealed class ModEntry : SimpleMod
 						.RegisterSprite(package.PackageRoot.GetRelativeFile($"assets/Character/FishGuy/{i}.png")).Sprite)
 				.ToList()
 		});
-		
-		
+		RevCharacter = helper.Content.Characters.V2.RegisterNonPlayableCharacter("Rev", new NonPlayableCharacterConfigurationV2()
+		{
+			CharacterType = "rev",
+			Name = AnyLocalizations.Bind(["character", "rev"]).Localize,
+			
+		});
+		helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2()
+		{
+			CharacterType = RevCharacter.CharacterType,
+			LoopTag = "neutral",
+			Frames = Enumerable.Range(0, 5)
+				.Select(i =>
+					helper.Content.Sprites
+						.RegisterSprite(package.PackageRoot.GetRelativeFile($"assets/Character/FishGuy/{i}.png")).Sprite)
+				.ToList()
+		});
+
+		_ = new RevDialogue();
 		SetUpModSettings(helper);
 	}
 

@@ -1,8 +1,23 @@
 {
     "character": {
-        "fishguy": "Fish Breath"
+        "fishguy": "Fish Breath",
+        "rev": "Rev",
     },
     "ship": {
-        "fishguy" : "The Dredger"
+        "fishguy" : "The Dredger",
+        "rev": "\"High Noon\""
+    },
+    "midrow": {
+        "FishingHook": {
+            "name": "FISHING HOOK",
+            "description" : "This missile deals <c=redd>1</c> damage and pulls you <c=keyword>3</c> spaces <c=keyword>{0}</c>. <c=downside>It cannot miss if you are to its</c> <c=keyword>{1}</c><c=downside>!</c>"
+        }
+    },
+    "action": {
+        "RevChallenge": {
+            "0": "<c=healing>ACCEPT</c>\nBoth parties agree to race to play a game of <c=keyword>Block, Shoot, Reload</c>. <c=keyword>The enemy will behave differently and there's consequences for winning or losing.</c>",
+            "1": "<c=downside>DENY</c>\nJust fight normally.",
+            "2": "Hear the rules to the game."
+        }
     }
 }
