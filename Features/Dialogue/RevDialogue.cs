@@ -18,7 +18,7 @@ internal class RevDialogue
                 priority = true,
                 once = true,
                 lookup = [
-                    "rev_challenge"
+                    "Rev_challenge"
                 ],
                 dialogue = [
                     new (AmRev, "Ah, you're here at last.", true),
@@ -31,7 +31,7 @@ internal class RevDialogue
                 type = NodeType.@event,
                 priority = false,
                 lookup = [
-                    "rev_challenge"
+                    "Rev_challenge"
                 ],
                 dialogue = [
                     new (AmRev, "You again! Ready for another duel?", true),

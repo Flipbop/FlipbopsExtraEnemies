@@ -36,7 +36,7 @@ internal sealed class RevEnemy : AI, IRegisterableEnemy
 
 		c.Queue(new AMidCombatDialogue()
 		{
-			script = ".rev_challenge"
+			script = ".Rev_challenge",
 		});
 	}
 
@@ -80,13 +80,63 @@ internal sealed class RevEnemy : AI, IRegisterableEnemy
 			hullMax = 5,
 			shieldMaxBase = 10,
 			ai = this,
-			chassisUnder = "chassis_pupa",
+			chassisUnder = "chassis_cicada",
 			parts = parts
 		};
 	}
 
 	public override EnemyDecision PickNextIntent(State s, Combat c, Ship ownShip)
 	{
+		if (isChallanegActive)
+		{
+			
+			return MoveSet(new Rand(), () => new EnemyDecision
+			{
+				actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
+				intents =
+				[
+					new IntentAttack()
+					{
+						key = "cannon",
+						damage = 1,
+					},
+					new IntentStatus()
+					{
+						key = "cockpit",
+						amount = -1,
+						status = ModEntry.Instance.ReloadStatus.Status,
+						targetSelf = true
+					}
+				]
+
+			}, () => new EnemyDecision
+			{
+				actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
+				intents =
+				[
+					new IntentStatus()
+					{
+						key = "cockpit",
+						amount = -1,
+						status = ModEntry.Instance.ReloadStatus.Status,
+						targetSelf = true
+					}
+				]
+			}, () => new EnemyDecision
+			{
+				actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),
+				intents =
+				[
+					new IntentStatus()
+					{
+						key = "cockpit",
+						amount = 1,
+						status = Status.perfectShield,
+						targetSelf = true
+					}
+				]
+			});
+		}
 		return MoveSet(aiCounter++, () => new EnemyDecision
 		{
 			actions = AIHelpers.MoveToAimAt(s, ownShip, s.ship, "cannon"),

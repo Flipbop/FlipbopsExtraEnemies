@@ -27,6 +27,9 @@ public sealed class ModEntry : SimpleMod
 
 	internal INonPlayableCharacterEntryV2 FishBreathCharacter { get; }
 	internal INonPlayableCharacterEntryV2 RevCharacter { get; }
+	
+	internal IStatusEntry ReloadStatus { get; }
+	internal ISpriteEntry reloadSprite { get; }
 
 
 	public IModHelper helper { get; }
@@ -47,8 +50,8 @@ public sealed class ModEntry : SimpleMod
 	
 	internal static IReadOnlyList<Type> EnemyTypes { get; } =
 	[
+		typeof(RevEnemy),
 		typeof(FishGuyEnemy),
-		
 	];
 
 	internal static readonly IEnumerable<Type> RegisterableTypes
@@ -64,6 +67,8 @@ public sealed class ModEntry : SimpleMod
 		Harmony = helper.Utilities.Harmony;
 		KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!.V2;
 		ModSettings = helper.Storage.LoadJson<ModSettings>(helper.Storage.GetMainStorageFile("json"));
+
+		reloadSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/Status/Reload.png"));
 
 		helper.Events.OnModLoadPhaseFinished += (_, phase) =>
 		{
@@ -85,6 +90,9 @@ public sealed class ModEntry : SimpleMod
 		
 		foreach (var registerableType in RegisterableTypes)
 			AccessTools.DeclaredMethod(registerableType, nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
+		
+		ReloadManager.ApplyPatches(Harmony, logger);
+
 		
 		FishBreathCharacter = helper.Content.Characters.V2.RegisterNonPlayableCharacter("FishBreath", new NonPlayableCharacterConfigurationV2()
 		{
@@ -115,11 +123,35 @@ public sealed class ModEntry : SimpleMod
 			Frames = Enumerable.Range(0, 5)
 				.Select(i =>
 					helper.Content.Sprites
-						.RegisterSprite(package.PackageRoot.GetRelativeFile($"assets/Character/FishGuy/{i}.png")).Sprite)
+						.RegisterSprite(package.PackageRoot.GetRelativeFile($"assets/Character/Rev/Neutral/{i}.png")).Sprite)
 				.ToList()
+		});
+		helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2()
+		{
+			CharacterType = RevCharacter.CharacterType,
+			LoopTag = "squint",
+			Frames = Enumerable.Range(0, 5)
+				.Select(i =>
+					helper.Content.Sprites
+						.RegisterSprite(package.PackageRoot.GetRelativeFile($"assets/Character/Rev/Squint/{i}.png")).Sprite)
+				.ToList()
+		});
+		
+		ReloadStatus = ModEntry.Instance.Helper.Content.Statuses.RegisterStatus("Reload", new()
+		{
+			Definition = new()
+			{
+				icon = reloadSprite.Sprite,
+				color = new("e0ad00"),
+				isGood = true,
+			},
+			Name = AnyLocalizations.Bind(["status", "Reload", "name"]).Localize,
+			Description = AnyLocalizations.Bind(["status", "Reload", "description"])
+				.Localize
 		});
 
 		_ = new RevDialogue();
+		_ = new ReloadManager();
 		SetUpModSettings(helper);
 	}
 

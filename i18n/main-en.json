@@ -19,5 +19,11 @@
             "1": "<c=downside>DENY</c>\nJust fight normally.",
             "2": "Hear the rules to the game."
         }
+    },
+    "status": {
+        "Reload": {
+            "name": "RELOAD",
+            "description": "This ship may spend 1 <c=status>RELOAD</c> to fire it's cannon."
+        }
     }
 }
