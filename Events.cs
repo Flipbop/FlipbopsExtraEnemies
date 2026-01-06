@@ -1,18 +1,22 @@
 using System.Collections.Generic;
+using HarmonyLib;
+using Microsoft.Extensions.Logging;
+using Nickel;
 
 namespace Flipbop.EnemyPack2;
 
-public class EventsModded
-{
-    public static bool isRulesVisible = true;
+public class EventsModded {
 
+    public static void Register(IModHelper helper)
+    {
+        DB.eventChoiceFns.Add(AccessTools.DeclaredMethod(typeof(EventsModded), nameof(EventsModded.RevChallenge)).Name, AccessTools.DeclaredMethod(typeof(EventsModded), nameof(EventsModded.RevChallenge)));
+        DB.eventChoiceFns.Add(AccessTools.DeclaredMethod(typeof(EventsModded), nameof(EventsModded.RevChallengeNoRules)).Name, AccessTools.DeclaredMethod(typeof(EventsModded), nameof(EventsModded.RevChallengeNoRules)));
+
+    }
     public static List<Choice> RevChallenge(State s)
     {
-        
-        if (isRulesVisible)
-        {
-            isRulesVisible = false;
-            return new List<Choice>
+        ModEntry.Instance.Logger.LogInformation("YEAH IT'S REGISTERED ALL RIGHT");
+        return new List<Choice>
             {
                 new ()
                 {
@@ -55,12 +59,13 @@ public class EventsModded
                     }
                 },
             };
-        }
-		
-		isRulesVisible = true;
+    }
+
+    public static List<Choice> RevChallengeNoRules(State s)
+    {
         return new List<Choice>
         {
-            new ()
+            new()
             {
                 label = Loc.T("RevChallenge_Yes", "You're on!"),
                 key = "RevChallenge_Yes",
@@ -72,7 +77,7 @@ public class EventsModded
                     }
                 }
             },
-            new ()
+            new()
             {
                 label = Loc.T("RevChallenge_No", "Pass."),
                 key = "RevChallenge_No",
@@ -85,6 +90,5 @@ public class EventsModded
                 }
             },
         };
-		
     }
 }

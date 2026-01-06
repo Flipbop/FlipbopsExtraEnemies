@@ -161,8 +161,7 @@ public sealed class ModEntry : SimpleMod
 				.Localize
 		});
 
-		
-		
+		EventsModded.Register(helper);
 		
 		_ = new RevDialogue();
 		_ = new ReloadManager();

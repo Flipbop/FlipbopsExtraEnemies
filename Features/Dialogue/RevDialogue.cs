@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Flipbop.BOAF;
+using Flipbop.EnemyPack2;
+using HarmonyLib;
 using Microsoft.Xna.Framework.Graphics;
 using Nanoray.PluginManager;
 using Nickel;
@@ -9,6 +11,9 @@ namespace Flipbop.BOAF;
 
 internal class RevDialogue 
 {
+    public string RevChallenge = AccessTools.DeclaredMethod(typeof(EventsModded), nameof(EventsModded.RevChallenge)).Name;
+    public string RevChallengeNoRules = AccessTools.DeclaredMethod(typeof(EventsModded), nameof(EventsModded.RevChallengeNoRules)).Name;
+
     public RevDialogue()
     {
         LocalDB.DumpStoryToLocalLocale("en", new Dictionary<string, DialogueMachine>()
@@ -34,7 +39,7 @@ internal class RevDialogue
                         new (AmCat, "squint", "Have we met?")
                     }),
                     new (AmRev, "I am Rev. Perhaps you will be able to match me in combat?", true),
-                    new (AmRev, "Play by my rules, and I might just reward you. Unless you just want an old fashioned brawl.", true, choiceFunc: "RevChallenge"),
+                    new (AmRev, "Play by my rules, and I might just reward you. Unless you just want an old fashioned brawl.", true, choiceFunc: RevChallenge),
                     
                 ]
             }},
@@ -47,9 +52,9 @@ internal class RevDialogue
                 dialogue = [
                     new (new List<DialogueThing>
                     {
-                        new (AmRev, "You again! Ready for <c=keyword>another duel</c>?", true, choiceFunc: "RevChallenge"),
-                        new (AmRev, "<c=keyword>Another duel</c> to pass the time?", true, choiceFunc: "RevChallenge"),
-                        new (AmRev, "Would you like to <c=keyword>duel</c>?", true, choiceFunc: "RevChallenge"),
+                        new (AmRev, "You again! Ready for <c=keyword>another duel</c>?", true, choiceFunc: RevChallenge),
+                        new (AmRev, "<c=keyword>Another duel</c> to pass the time?", true, choiceFunc: RevChallenge),
+                        new (AmRev, "Would you like to <c=keyword>duel</c>?", true, choiceFunc: RevChallenge),
                     })
                     
                 ]
@@ -68,7 +73,7 @@ internal class RevDialogue
                     new (AmMax, "squint","So you mean to tell me you just look like this?"),
                     new (AmRev, "squint","Yes?", true),
                     new (AmMax, "Cool."),
-                    new (AmRev, "Would you like a duel?", true, choiceFunc: "RevChallenge"),
+                    new (AmRev, "Would you like a duel?", true, choiceFunc: RevChallenge),
                     
                 ]
             }},
@@ -87,7 +92,7 @@ internal class RevDialogue
                     new (AmMax, "Oh c'mon! Everyone has heard of him!"),
                     new (AmRev, "Not me apparently.", true),
                     new (AmMax, "Okay, I will come back with a picture of him to prove it to you."),
-                    new (AmRev, "Sure, but in the meantime, want another duel?", true, choiceFunc: "RevChallenge"),
+                    new (AmRev, "Sure, but in the meantime, want another duel?", true, choiceFunc: RevChallenge),
                     
                 ]
             }},
@@ -135,7 +140,7 @@ internal class RevDialogue
                     new (AmRev, "If you think I intend to shoot you, play Block to not be hit.", true),
                     new (AmRev, "You likely will only be able to afford one card on your turn, so choose wisely!", true),
                     new (AmRev, "The first person to be hit 3 times loses.", true),
-                    new (AmRev, "So, want to play?", true, choiceFunc: "RevChallenge"),
+                    new (AmRev, "So, want to play?", true, choiceFunc: RevChallengeNoRules),
 
                 ]
             }}

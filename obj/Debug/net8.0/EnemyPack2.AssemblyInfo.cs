@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnemyPack2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("0.1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.1.0+3f60005adf348aa27b73c015ee78fabd57dabaf7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.1.0+cc95e5e26274e981a9d8309a77b9271be3969f2d")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnemyPack2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnemyPack2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("0.1.0.0")]
