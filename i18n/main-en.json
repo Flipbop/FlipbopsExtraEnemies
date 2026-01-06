@@ -15,8 +15,8 @@
     },
     "action": {
         "RevChallenge": {
-            "0": "<c=healing>ACCEPT</c>\nBoth parties agree to race to play a game of <c=keyword>Block, Shoot, Reload</c>. <c=keyword>The enemy will behave differently and there's consequences for winning or losing.</c>",
-            "1": "<c=downside>DENY</c>\nJust fight normally.",
+            "1": "<c=healing>ACCEPT</c>\nBoth parties agree to race to play a game of <c=keyword>Block, Shoot, Reload</c>. <c=keyword>The enemy will behave differently and there's consequences for winning or losing.</c>",
+            "0": "<c=downside>DENY</c>\nJust fight normally.",
             "2": "Hear the rules to the game."
         }
     },

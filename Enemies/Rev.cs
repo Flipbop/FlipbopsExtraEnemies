@@ -146,7 +146,12 @@ internal sealed class RevEnemy : AI, IRegisterableEnemy
 				{
 					key = "cannon",
 					damage = 4,
-				}
+				},
+				new IntentMissile()
+				{
+					missileType = MissileType.heavy,
+					key = "missile"
+				},
 			]
 
 		}, () => new EnemyDecision
@@ -169,19 +174,20 @@ internal sealed class RevEnemy : AI, IRegisterableEnemy
 			]
 		}, () => new EnemyDecision
 		{
-			actions = AIHelpers.Move(8),
 			intents =
 			[
-				new IntentMissile()
-				{
-					missileType = MissileType.seeker,
-					key = "missile"
-				},
 				new IntentStatus()
 				{
 					key = "cockpit",
 					amount = 3,
 					status = Status.tempShield,
+					targetSelf = true
+				},
+				new IntentStatus()
+				{
+					key = "wing.left",
+					amount = 1,
+					status = Status.autododgeRight,
 					targetSelf = true
 				}
 			]

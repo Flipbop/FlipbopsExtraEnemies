@@ -7,6 +7,7 @@ using Shockah.Kokoro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Flipbop.BOAF;
 
 namespace Flipbop.EnemyPack2;
@@ -18,6 +19,7 @@ public sealed class ModEntry : SimpleMod
 
 	internal IHarmony Harmony { get; }
 	internal IKokoroApi.IV2 KokoroApi { get; }
+	public LocalDB localDB { get; set; } = null!;
 
 	internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
 	internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
@@ -78,8 +80,17 @@ public sealed class ModEntry : SimpleMod
 				AccessTools.DeclaredMethod(type, nameof(IRegisterableEnemy.Register))?.Invoke(null, [helper]);
 			}
 
-		};
+			localDB = new(helper, package);
 
+		};
+		helper.Events.OnLoadStringsForLocale += (_, thing) =>
+		{
+			foreach (KeyValuePair<string, string> entry in localDB.GetLocalizationResults())
+			{
+				thing.Localizations[entry.Key] = entry.Value;
+			}
+		};
+		
 		this.AnyLocalizations = new JsonLocalizationProvider(
 			tokenExtractor: new SimpleLocalizationTokenExtractor(),
 			localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/main-{locale}.json").OpenRead()
@@ -150,6 +161,9 @@ public sealed class ModEntry : SimpleMod
 				.Localize
 		});
 
+		
+		
+		
 		_ = new RevDialogue();
 		_ = new ReloadManager();
 		SetUpModSettings(helper);

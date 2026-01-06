@@ -15,9 +15,14 @@ public sealed class ARevChallenge : CardAction
 	{
 		if (c.otherShip.ai is RevEnemy rev) 
 		{
-			if (choice == 1) 
-				rev.isChallanegActive = true;
-			if (choice == 2) {}
+			if (choice == 0)
+			{
+				rev.isChallanegActive = false; 
+			}
+			if (choice == 1)
+			{ 
+				rev.isChallanegActive = true; 
+			}
 		}
 	}
 	

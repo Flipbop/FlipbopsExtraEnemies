@@ -6,3 +6,4 @@
 /Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.AssemblyInfo.cs
 /Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.csproj.CoreCompileInputs.cache
 /Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.dll
+/Users/christopherfranson/Desktop/Cobalt Core Mods/EnemyPack2Git/EnemyPack2/obj/Debug/net8.0/EnemyPack2.sourcelink.json
